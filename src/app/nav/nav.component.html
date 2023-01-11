@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white w-100 navigation" id="navbar">
+  <div class="container">
+    <a class="navbar-brand font-weight-bold" routerLink="/">WebShop Angular</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar"
+      aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse " id="main-navbar">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="/">Home </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/products">Shop</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/contact">Contact</a>
+        </li>
+      </ul>
+    </div>
+    <ul class="top-menu list-inline mb-0 d-none d-lg-block" id="top-menu">
+      <li class="list-inline-item"><a routerLink="/cart"><i class="tf-ion-android-cart"></i></a></li>
+      <li class="list-inline-item"><a routerLink="/user/profile"><i class="tf-ion-ios-person mr-3"></i></a></li>
+    </ul>
+  </div>
+</nav>
