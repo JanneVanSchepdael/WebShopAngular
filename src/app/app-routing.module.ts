@@ -9,20 +9,20 @@ import { ProductListComponent } from './products/product-list/product-list.compo
 import { LoginComponent } from './user/login/login.component';
 import { ProfileComponent } from './user/profile/profile.component';
 import { RegisterComponent } from './user/register/register.component';
+import { AuthGuard } from './_guards/auth.guard';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {
     path: '',
     runGuardsAndResolvers: 'always',
-    //canActivate: [AuthGuard],
     children: [
       {path: 'products', component: ProductListComponent},
       {path: 'products/:id', component: ProductDetailComponent},
       {path: 'login', component: LoginComponent},
       {path: 'register', component: RegisterComponent},
-      {path: 'cart', component: CartComponent},
-      {path: 'user/profile', component: ProfileComponent},
+      {path: 'cart', component: CartComponent, canActivate: [AuthGuard]},
+      {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
       {path: 'about', component: AboutComponent},
       {path: 'contact', component: ContactComponent},
     ]

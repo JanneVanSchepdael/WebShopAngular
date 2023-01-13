@@ -18,6 +18,8 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './user/profile/profile.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
 
 // Carousel
 //import { SlickCarouselModule } from 'ngx-slick-carousel';
@@ -44,6 +46,11 @@ import { ContactComponent } from './contact/contact.component';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
+    FormsModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right'
+    })
     //SlickCarouselModule
   ],
   providers: [],

@@ -1,6 +1,6 @@
 <section class="single-product border-top" style="min-height:81vh;">
   <div class="container">
-    <div class="row">
+    <div *ngIf="product" class="row">
       <div class="col-md-5">
         <div class="single-product-slider">
           <div class="carousel slide" data-ride="carousel" id="single-product-slider">
@@ -33,14 +33,11 @@
 
       <div class="col-md-7">
         <div class="single-product-details mt-5 mt-lg-0">
-          <h2>Eclipse Crossbody</h2>
-          <div class="sku_wrapper mb-4">
-            SKU: <span class="text-muted">AB1563456789 </span>
-          </div>
+          <h2>{{product.name}}</h2>
 
           <hr>
 
-          <h3 class="product-price">$300 <del>$119.90</del></h3>
+          <h3 class="product-price">${{product.price}}</h3>
 
           <p class="product-description my-4 ">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum ipsum dicta quod, quia doloremque aut
@@ -50,45 +47,19 @@
 
           <form class="cart" action="#" method="post">
             <div class="quantity d-flex align-items-center">
-              <input type="number" id="#" class="input-text qty text form-control w-25 mr-3" step="1" min="1" max="9"
-                name="quantity" value="1" title="Qty" size="4">
-              <a href="#" class="btn btn-main btn-small">Add to cart</a>
+              <input
+                [(ngModel)]="quantity"
+                type="number"
+                id="#"
+                class="input-text qty text form-control w-25 mr-3"
+                step="1" min="1" max="9"
+                name="quantity"
+                value="1"
+                title="Qty"
+                size="4">
+              <a (click)="addToCart()" class="btn btn-main btn-small">Add to cart</a>
             </div>
           </form>
-
-
-          <div class="color-swatches mt-4 d-flex align-items-center">
-            <span class="font-weight-bold text-capitalize product-meta-title">color:</span>
-            <ul class="list-inline mb-0">
-              <li class="list-inline-item">
-                <a routerLink="/product-single" class="bg-info"></a>
-              </li>
-              <li class="list-inline-item">
-                <a routerLink="/product-single" class="bg-dark"></a>
-              </li>
-              <li class="list-inline-item">
-                <a routerLink="/product-single" class="bg-danger"></a>
-              </li>
-            </ul>
-          </div>
-
-          <div class="product-size d-flex align-items-center mt-4">
-            <span class="font-weight-bold text-capitalize product-meta-title">Size:</span>
-            <select class="form-control">
-              <option>S</option>
-              <option>M</option>
-              <option>L</option>
-              <option>XL</option>
-            </select>
-          </div>
-
-          <div class="products-meta mt-4">
-            <div class="product-category d-flex align-items-center">
-              <span class="font-weight-bold text-capitalize product-meta-title">Categories :</span>
-              <a href="#">Products , </a>
-              <a href="#">Soap</a>
-            </div>
-          </div>
         </div>
       </div>
     </div>

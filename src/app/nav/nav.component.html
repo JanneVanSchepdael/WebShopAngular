@@ -14,16 +14,34 @@
           <a class="nav-link" routerLink="/products">Shop</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/about">About</a>
+          <a (click)="notImplmented()" class="nav-link">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/contact">Contact</a>
+          <a (click)="notImplmented()" class="nav-link">Contact</a>
         </li>
       </ul>
     </div>
+
+
     <ul class="top-menu list-inline mb-0 d-none d-lg-block" id="top-menu">
       <li class="list-inline-item"><a routerLink="/cart"><i class="tf-ion-android-cart"></i></a></li>
-      <li class="list-inline-item"><a routerLink="/user/profile"><i class="tf-ion-ios-person mr-3"></i></a></li>
+      <li class="list-inline-item nav-item dropdown dropdown-slide">
+            <a class="nav-link dropdown-toggle" routerLink="/profile" id="navbarDropdown" role="button" data-delay="350"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="tf-ion-ios-person mr-3"></i>
+          </a>
+
+          <ul *ngIf="(userService.currentUser$ | async); else noUser" class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a routerLink="/profile">View Profile</a></li>
+            <li><a (click)="logout()">Logout</a></li>
+          </ul>
+
+          <ng-template #noUser>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a routerLink="/login">Login</a></li>
+            </ul>
+          </ng-template>
+      </li>
     </ul>
   </div>
 </nav>
