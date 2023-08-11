@@ -1,14 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { map, Observable } from 'rxjs';
 import { Cart } from '../_models/cart';
-import { Product } from '../_models/product';
 import { User } from '../_models/user';
 import { CartService } from '../_services/cart.service';
-import { OrderService } from '../_services/order.service';
-import { UserService } from '../_services/user.service';
-
+import { OrderItem } from '../_models/orderItem';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -31,40 +27,31 @@ export class CartComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.cart)
   }
 
   get cart$(): Observable<Cart>{
     return this._fetchCart$;
   }
 
-  /*removeFromCart(product: Product){
-    product.quantity = product.quantity - 1;
+  quantityChanged(item: OrderItem){
+    console.log(this.cart);
 
-    let updateProduct = this.cart.products.find(i => i.id === product.id)!;
-    let index = this.cart.products.indexOf(updateProduct);
+    this.cart.recalculateTotalPrice();
+    this.cartService.editCart(this.cart).subscribe(res => {
+      console.log("Cart edited successfully.")
+    })
 
-    if(product.quantity > 0){
-      this.cart.products[index] = product;
-    } else{
-      this.cart.products.splice(index, 1);
-      console.log(this.cart);
-    }
-
-    this._fetchCart$ = this.cartService.editCart(this.cart);
   }
 
-  addToCart(product: Product){
-    product.quantity = product.quantity + 1;
-
-    let updateProduct = this.cart.products.find(i => i.id === product.id)!;
-    let index = this.cart.products.indexOf(updateProduct);
-
-    this.cart.products[index] = product;
-    this.cartService.editCart(this.cart);
-  }*/
+  removeProduct(item: OrderItem){
+    this.cart.removeItem(item);
+    this.cartService.editCart(item).subscribe(res => {
+      this.toastr.success("Product removed from cart.")
+    })
+  }
 
   order(){
     this.toastr.info("This function has not been implemented.")
-
   }
 }
