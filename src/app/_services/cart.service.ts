@@ -20,6 +20,12 @@ export class CartService {
         map(val => Cart.fromJson(val.cart)));
   }
 
+  addToCart(userId: string, productId: number, quantity: number): Observable<Cart> {
+    return this.http
+      .post<CartResponse>(`${environment.apiUrl}/carts/`, { userId, productId, quantity })
+      .pipe(catchError(this.handleError), map(res => Cart.fromJson(res.cart)));
+  }
+
   editCart(updatedCart: Cart): Observable<Cart>{
     return this.http
       .put<CartResponse>(`${environment.apiUrl}/carts/`, updatedCart.toJson())

@@ -24,8 +24,9 @@ export class OrderItem{
   }
 
   toJson() : ItemJson {
-    return <ItemJson>{
-      product: this._product,
+    return <any>{
+      id: this._id,
+      productId: this._product.id,
       quantity: this._quantity
     }
   }

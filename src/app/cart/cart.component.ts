@@ -5,6 +5,7 @@ import { Cart } from '../_models/cart';
 import { User } from '../_models/user';
 import { CartService } from '../_services/cart.service';
 import { OrderItem } from '../_models/orderItem';
+import { UserService } from '../_services/user.service';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -13,14 +14,18 @@ import { OrderItem } from '../_models/orderItem';
 export class CartComponent implements OnInit {
   public cart!: Cart;
   public _fetchCart$: Observable<Cart>;
+  public user!: User;
 
   constructor(
     private cartService: CartService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private userService: UserService
   ) {
-    const userJson = localStorage.getItem('user')
-    const user: User = userJson !== null ? JSON.parse(userJson) : null;
-    this._fetchCart$ = this.cartService.getCart$(user.id);
+    this.userService.currentUser$.subscribe((user: User) => {
+      this.user = user;
+    });
+
+    this._fetchCart$ = this.cartService.getCart$(this.user.id);
     this._fetchCart$.subscribe(res => {
       this.cart = res;
     })
@@ -35,8 +40,6 @@ export class CartComponent implements OnInit {
   }
 
   quantityChanged(item: OrderItem){
-    console.log(this.cart);
-
     this.cart.recalculateTotalPrice();
     this.cartService.editCart(this.cart).subscribe(res => {
       console.log("Cart edited successfully.")
