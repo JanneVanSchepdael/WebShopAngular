@@ -1,4 +1,3 @@
-
 <section class="cart shopping page-wrapper border-top py-4" style="min-height: 81vh;">
   <div *ngIf="cart$ | async" class="container">
     <h2 class="py-2">My Cart</h2>
@@ -18,42 +17,33 @@
                 </tr>
               </thead>
 
-              <tbody *ngFor="let product of cart.products">
-                  <tr class="cart_item">
-                    <td class="product-thumbnail" data-title="Thumbnail">
-                      <a routerLink="/products/{{product.id}}"><img src="assets/images/cart-1.jpg"
-                          class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt=""></a>
-                    </td>
+              <tbody *ngFor="let item of cart.items;">
+                <tr class="cart_item">
+                  <td class="product-thumbnail" data-title="Thumbnail">
+                    <a routerLink="/products/{{item.product.id}}"><img src="assets/images/cart-1.jpg"
+                        class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt=""></a>
+                  </td>
 
-                    <td class="product-name" data-title="Product">
-                      <a routerLink="/products/{{product.id}}">{{product.name}}</a>
-                    </td>
+                  <td class="product-name" data-title="Product">
+                    <a routerLink="/products/{{item.product.id}}">{{item.product.name}}</a>
+                  </td>
 
-                    <td class="product-price" data-title="Price">
-                      <span class="amount"><span class="currencySymbol">
-                          <pre wp-pre-tag-3=""></pre>
-                        </span>{{product.price | number:'1.2-2'}}</span>
-                    </td>
-                    <td class="product-quantity" data-title="Quantity">
-                      <span class="amount"><span class="currencySymbol">
-                        <pre wp-pre-tag-3=""></pre>
-                      </span>x{{product.quantity }}</span>
-                    </td>
-                    <td class="product-subtotal" data-title="Total">
-                      <span class="amount">
-                        <span class="currencySymbol">
-                          <pre wp-pre-tag-3=""></pre>
-                        </span>{{product.price * product.quantity | number:'1.2-2'}}</span>
-                    </td>
-                    <!--<td class="product-remove" data-title="Remove">
-                      <a style="cursor:pointer" (click)="removeFromCart(product)" class="remove" aria-label="Remove this item" data-product_id="30"
-                        data-product_sku="">-</a>
-                    </td>
-                    <td class="product-remove" data-title="Add">
-                      <a style="cursor:pointer" (click)="addToCart(product)" class="remove" aria-label="Remove this item" data-product_id="30"
-                        data-product_sku="">+</a>
-                    </td>-->
-                  </tr>
+                  <td class="product-price" data-title="Price">
+                    <span class="amount"><span class="currencySymbol">
+                      </span>{{item.product.price | number:'1.2-2'}}</span>
+                  </td>
+                  <td class="product-quantity" data-title="Quantity">
+                    <input type="number" min="1" name="product-quantity-{{item.id}}" [(ngModel)]="item.quantity"
+                      (ngModelChange)="quantityChanged(item)"/>
+                      <button class="remove-button" (click)="removeProduct(item)">X</button>
+                  </td>
+                  <td class="product-subtotal" data-title="Total">
+                    <span class="amount">
+                      <span class="currencySymbol"></span>
+                      {{item.product.price * item.quantity | number:'1.2-2'}}
+                    </span>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </form>
@@ -84,3 +74,17 @@
     </div>
   </div>
 </section>
+
+<!--<span class="amount"><span class="currencySymbol">
+                        <pre wp-pre-tag-3=""></pre>
+                      </span>x{{product.quantity }}</span>-->
+
+
+<!--<td class="product-remove" data-title="Remove">
+                      <a style="cursor:pointer" (click)="removeFromCart(product)" class="remove" aria-label="Remove this item" data-product_id="30"
+                        data-product_sku="">-</a>
+                    </td>
+                    <td class="product-remove" data-title="Add">
+                      <a style="cursor:pointer" (click)="addToCart(product)" class="remove" aria-label="Remove this item" data-product_id="30"
+                        data-product_sku="">+</a>
+                    </td>-->

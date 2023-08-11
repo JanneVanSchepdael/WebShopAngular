@@ -3,7 +3,6 @@ export interface ProductJson{
   name: string;
   image: string;
   price: number;
-  quantity: number;
 }
 
 export class Product {
@@ -11,16 +10,14 @@ export class Product {
   constructor(
     private _name: string,
     private _image: string,
-    private _price: number,
-    private _quantity: number
+    private _price: number
   ) {}
 
   static fromJson(json: ProductJson): Product {
     const product = new Product(
       json.name,
       json.image,
-      json.price,
-      json.quantity
+      json.price
       );
     product._id = json.id;
     return product;
@@ -30,8 +27,7 @@ export class Product {
     return <ProductJson>{
       name: this._name,
       image: this._image,
-      price: this._price,
-      quantity: this._quantity
+      price: this._price
     }
   }
 
@@ -49,13 +45,5 @@ export class Product {
 
   get price(): number{
     return this._price;
-  }
-
-  get quantity(): number{
-    return this._quantity;
-  }
-
-  set quantity(x: number){
-    this._quantity = x;
   }
 }

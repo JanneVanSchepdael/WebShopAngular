@@ -1,0 +1,6 @@
+.remove-button {
+  border: none;
+  padding-left: 0.7rem;
+  font-weight: bold;
+  cursor: pointer;
+}

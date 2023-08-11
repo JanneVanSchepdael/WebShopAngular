@@ -30,7 +30,6 @@ export class ProductDetailComponent implements OnInit{
   }
 
   addToCart(){
-    this.product.quantity = this.quantity;
     this.toastr.success('Product added to cart.');
     // add product to cart, with quantity value
   }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { Cart, CartJson } from '../_models/cart';
+import { Cart, CartJson, CartResponse } from '../_models/cart';
 import { catchError, map, Observable, tap, throwError } from 'rxjs';
 import { environment } from 'src/env/environment';
 
@@ -9,8 +9,6 @@ import { environment } from 'src/env/environment';
   providedIn: 'root'
 })
 export class CartService {
-
-
   constructor(private http: HttpClient) { }
 
   getCart$(id: string): Observable<Cart> {
@@ -22,10 +20,10 @@ export class CartService {
         map(val => Cart.fromJson(val.cart)));
   }
 
-  editCart(cart: Cart): Observable<Cart>{
+  editCart(updatedCart: Cart): Observable<Cart>{
     return this.http
-      .put<CartJson>(`${environment.apiUrl}/carts/`,cart.toJson())
-      .pipe(catchError(this.handleError), map(Cart.fromJson));
+      .put<CartResponse>(`${environment.apiUrl}/carts/`, updatedCart.toJson())
+      .pipe(catchError(this.handleError), map(res => Cart.fromJson(res.cart)));
   }
 
   handleError(err: any): Observable<never> {
