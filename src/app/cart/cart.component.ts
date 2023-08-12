@@ -28,7 +28,9 @@ export class CartComponent implements OnInit {
     this._fetchCart$ = this.cartService.getCart$(this.user.id);
     this._fetchCart$.subscribe(res => {
       this.cart = res;
+      this.cart.recalculateTotalPrice();
     })
+
   }
 
   ngOnInit(): void {
@@ -47,12 +49,20 @@ export class CartComponent implements OnInit {
 
   }
 
+  confirmDelete(item: OrderItem){
+    if(confirm("Are you sure you want to delete this item?")){
+      this.removeProduct(item);
+    }
+  }
+
   removeProduct(item: OrderItem){
     this.cart.removeItem(item);
     this.cartService.editCart(this.cart).subscribe(res => {
       this.toastr.success("Product removed from cart.")
     })
   }
+
+
 
   order(){
     this.toastr.info("This function has not been implemented.")

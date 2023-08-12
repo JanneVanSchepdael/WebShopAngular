@@ -51,12 +51,12 @@
                 type="number"
                 id="#"
                 class="input-text qty text form-control w-25 mr-3"
-                step="1" min="1" max="9"
+                step="1" min="1"
                 name="quantity"
-                value="1"
+                [(ngModel)]="quantity"
                 title="Qty"
                 size="4">
-              <a (click)="addToCart()" class="btn btn-main btn-small">Add to cart</a>
+              <a (click)="addToCart(quantity)" class="btn btn-main btn-small">Add to cart</a>
             </div>
           </form>
         </div>

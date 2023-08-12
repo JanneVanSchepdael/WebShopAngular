@@ -35,7 +35,7 @@
                   <td class="product-quantity" data-title="Quantity">
                     <input type="number" min="1" name="product-quantity-{{item.id}}" [(ngModel)]="item.quantity"
                       (ngModelChange)="quantityChanged(item)"/>
-                      <button class="remove-button" (click)="removeProduct(item)">X</button>
+                      <button class="remove-button" (click)="confirmDelete(item)">X</button>
                   </td>
                   <td class="product-subtotal" data-title="Total">
                     <span class="amount">
@@ -74,17 +74,3 @@
     </div>
   </div>
 </section>
-
-<!--<span class="amount"><span class="currencySymbol">
-                        <pre wp-pre-tag-3=""></pre>
-                      </span>x{{product.quantity }}</span>-->
-
-
-<!--<td class="product-remove" data-title="Remove">
-                      <a style="cursor:pointer" (click)="removeFromCart(product)" class="remove" aria-label="Remove this item" data-product_id="30"
-                        data-product_sku="">-</a>
-                    </td>
-                    <td class="product-remove" data-title="Add">
-                      <a style="cursor:pointer" (click)="addToCart(product)" class="remove" aria-label="Remove this item" data-product_id="30"
-                        data-product_sku="">+</a>
-                    </td>-->
