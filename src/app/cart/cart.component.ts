@@ -37,11 +37,11 @@ export class CartComponent implements OnInit {
     console.log(this.cart)
   }
 
-  get cart$(): Observable<Cart>{
+  get cart$(): Observable<Cart> {
     return this._fetchCart$;
   }
 
-  quantityChanged(item: OrderItem){
+  quantityChanged(item: OrderItem) {
     this.cart.recalculateTotalPrice();
     this.cartService.editCart(this.cart).subscribe(res => {
       console.log("Cart edited successfully.")
@@ -49,22 +49,16 @@ export class CartComponent implements OnInit {
 
   }
 
-  confirmDelete(item: OrderItem){
-    if(confirm("Are you sure you want to delete this item?")){
-      this.removeProduct(item);
+  confirmDelete(item: OrderItem) {
+    if (confirm("Are you sure you want to delete this item?")) {
+      this.cart.removeItem(item);
+      this.cartService.editCart(this.cart).subscribe(res => {
+        this.toastr.success("Product removed from cart.")
+      })
     }
   }
-
-  removeProduct(item: OrderItem){
-    this.cart.removeItem(item);
-    this.cartService.editCart(this.cart).subscribe(res => {
-      this.toastr.success("Product removed from cart.")
-    })
-  }
-
-
-
-  order(){
+  
+  order() {
     this.toastr.info("This function has not been implemented.")
   }
 }
