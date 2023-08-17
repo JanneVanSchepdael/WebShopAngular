@@ -6,6 +6,7 @@ import { User } from '../_models/user';
 import { CartService } from '../_services/cart.service';
 import { OrderItem } from '../_models/orderItem';
 import { UserService } from '../_services/user.service';
+import { OrderService } from '../_services/order.service';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -19,7 +20,8 @@ export class CartComponent implements OnInit {
   constructor(
     private cartService: CartService,
     private toastr: ToastrService,
-    private userService: UserService
+    private userService: UserService,
+    private orderService: OrderService
   ) {
     this.userService.currentUser$.subscribe((user: User) => {
       this.user = user;
@@ -57,8 +59,17 @@ export class CartComponent implements OnInit {
       })
     }
   }
-  
+
   order() {
-    this.toastr.info("This function has not been implemented.")
+    if (this.cart.items.length === 0) {
+      this.toastr.error("Your cart is empty!");
+      return;
+    }
+
+    this.orderService.addOrder(this.cart).subscribe(res => {
+      this.toastr.success("Order placed successfully!");
+      this.cart.items = [];
+      this.cart.recalculateTotalPrice();
+    });
   }
 }

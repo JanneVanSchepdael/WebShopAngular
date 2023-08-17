@@ -1,55 +1,59 @@
 <section class="cart shopping page-wrapper border-top py-4" style="min-height: 81vh;">
   <div *ngIf="cart$ | async" class="container">
     <h2 class="py-2">My Cart</h2>
-    <div class="row justify-content-center">
-      <div class="col-lg-12">
-        <div class="product-list">
-          <form class="cart-form">
-            <table class="table shop_table shop_table_responsive cart" cellspacing="0">
-              <thead>
-                <tr>
-                  <th class="product-thumbnail"> </th>
-                  <th class="product-name">Product</th>
-                  <th class="product-price">Price</th>
-                  <th class="product-quantity">Quantity</th>
-                  <th class="product-subtotal">Total</th>
-                  <th class="product-remove"> </th>
-                </tr>
-              </thead>
+    <div *ngIf="cart.items.length > 0; else emptyCart">
 
-              <tbody *ngFor="let item of cart.items;">
-                <tr class="cart_item">
-                  <td class="product-thumbnail" data-title="Thumbnail">
-                    <a routerLink="/products/{{item.product.id}}"><img src="assets/images/cart-1.jpg"
-                        class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt=""></a>
-                  </td>
+      <div class="row justify-content-center">
+        <div class="col-lg-12">
+          <div class="product-list">
+            <form class="cart-form">
+              <table class="table shop_table shop_table_responsive cart" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th class="product-thumbnail"> </th>
+                    <th class="product-name">Product</th>
+                    <th class="product-price">Price</th>
+                    <th class="product-quantity">Quantity</th>
+                    <th class="product-subtotal">Total</th>
+                    <th class="product-remove"> </th>
+                  </tr>
+                </thead>
 
-                  <td class="product-name" data-title="Product">
-                    <a routerLink="/products/{{item.product.id}}">{{item.product.name}}</a>
-                  </td>
+                <tbody *ngFor="let item of cart.items;">
+                  <tr class="cart_item">
+                    <td class="product-thumbnail" data-title="Thumbnail">
+                      <a routerLink="/products/{{item.product.id}}"><img src="assets/images/product-2.jpg"
+                          class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt=""></a>
+                    </td>
 
-                  <td class="product-price" data-title="Price">
-                    <span class="amount"><span class="currencySymbol">
-                      </span>{{item.product.price | number:'1.2-2'}}</span>
-                  </td>
-                  <td class="product-quantity" data-title="Quantity">
-                    <input type="number" min="1" name="product-quantity-{{item.id}}" [(ngModel)]="item.quantity"
-                      (ngModelChange)="quantityChanged(item)"/>
+                    <td class="product-name" data-title="Product">
+                      <a routerLink="/products/{{item.product.id}}">{{item.product.name}}</a>
+                    </td>
+
+                    <td class="product-price" data-title="Price">
+                      <span class="amount"><span class="currencySymbol">
+                        </span>{{item.product.price | number:'1.2-2'}}</span>
+                    </td>
+                    <td class="product-quantity" data-title="Quantity">
+                      <input type="number" min="1" name="product-quantity-{{item.id}}" [(ngModel)]="item.quantity"
+                        (ngModelChange)="quantityChanged(item)" />
                       <button class="remove-button" (click)="confirmDelete(item)">X</button>
-                  </td>
-                  <td class="product-subtotal" data-title="Total">
-                    <span class="amount">
-                      <span class="currencySymbol"></span>
-                      {{item.product.price * item.quantity | number:'1.2-2'}}
-                    </span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </form>
+                    </td>
+                    <td class="product-subtotal" data-title="Total">
+                      <span class="amount">
+                        <span class="currencySymbol"></span>
+                        {{item.product.price * item.quantity | number:'1.2-2'}}
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </form>
+          </div>
         </div>
       </div>
     </div>
+
     <div class="row justify-content-end">
       <div class="col-lg-4">
         <div class="cart-info card p-4 mt-4">
@@ -74,3 +78,9 @@
     </div>
   </div>
 </section>
+
+<ng-template #emptyCart>
+  <h6>
+    Your cart is empty!
+  </h6>
+</ng-template>

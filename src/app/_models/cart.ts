@@ -32,9 +32,17 @@ export class Cart{
   toJson() : any {
     return {
         cart: {
-        id: this._id,
         items: this._items.map(i => i.toJson()),
         userId: this._userId
+      }
+    }
+  }
+
+  toOrderJson(): any {
+    return {
+      order: {
+        items: this._items.map(i => i.toJson()),
+        userId: this._userId,
       }
     }
   }

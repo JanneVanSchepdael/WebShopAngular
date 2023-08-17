@@ -8,27 +8,14 @@
             <p class="lead">Don't have an account? <a routerLink="/register"> Register now</a></p>
           </div>
 
-
-
-          <form #loginForm="ngForm" (ngSubmit)="login()">
+          <form [formGroup]="loginForm" (ngSubmit)="login()">
             <div class="form-group mb-4">
               <label for="#">Enter Email Address</label>
-              <input
-                name="email"
-                [(ngModel)]="model.email"
-                type="text"
-                class="form-control"
-                placeholder="Email"
-                >
+              <input formControlName="email" type="text" class="form-control" placeholder="Email">
             </div>
             <div class="form-group mb-4">
               <label for="#">Enter Password</label>
-              <input
-                name="password"
-                [(ngModel)]="model.password"
-                type="Password"
-                class="form-control"
-                placeholder="Password">
+              <input formControlName="password" type="Password" class="form-control" placeholder="Password">
             </div>
             <button type="submit" class="btn btn-main mt-3 btn-block">Log in</button>
           </form>

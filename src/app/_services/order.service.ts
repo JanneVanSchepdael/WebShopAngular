@@ -26,9 +26,9 @@ export class OrderService {
     );
   }
 
-  addNewOrder(cart: Cart) {
+  addOrder(cart: Cart) {
     return this.http
-      .post<OrderJson>(`${environment.apiUrl}/`, cart.toJson())
+      .post<OrderJson>(`${this.baseUrl}/`, cart.toOrderJson())
       .pipe(catchError(this.handleError), map(Order.fromJson))
       .pipe(
         tap((ord: Order) => {
